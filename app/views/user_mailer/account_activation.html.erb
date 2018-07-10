@@ -1,9 +1,9 @@
-<h1>SHARING TECH</h1>
+<h1>勤怠システム</h1>
 
 <p>ようこそ！<%= @user.name %></p>
 
 <p>
-SHARING TECHのアカウントを作成するには、”アカウントの有効化”をクリックして下さい。
+勤怠システムのアカウントを作成するには、”アカウントの有効化”をクリックして下さい。
 </p>
 
 <%= link_to "アカウントの有効化", edit_account_activation_url(@user.activation_token, email: @user.email) %>
