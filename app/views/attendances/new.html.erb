@@ -1,0 +1,35 @@
+<%- if false %>
+<%= week_calendar(attribute: :arriving_at, end_attribute: :leaving_at, events: @attendance) do |date, attendance| %>
+  <span class="date-str"><%= date.day %></span>
+  <div class="row">
+  </div>
+    <% attendance.each do |attendance| %>
+        <div>
+          出社時間<%= attendance.arriving_at.to_s(:time) %><br>
+          退社時間<%= attendance.leaving_at.to_s(:time) %><br>
+          在社時間<%= (Time.parse("1/1") + (attendance.leaving_at - attendance.arriving_at)).strftime("%H時間%M分%S秒")%>
+        </div>
+   <% end %>
+<% end %>
+<% end %>
+
+<%= form_for @attendance do |f| %>
+  <div class="field">
+    <%= f.label :arriving_at, "出社時間" %>
+    <%= f.datetime_select :arriving_at, {}, class: 'form-control' %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :leaving_at, "退社時間" %>
+    <%= f.datetime_select :leaving_at, {}, class: 'form-control' %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :note, "Note" %>
+    <%= f.text_field :note %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "登録する" %>
+  </div>
+<% end %>

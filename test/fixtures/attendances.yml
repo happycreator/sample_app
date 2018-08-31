@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  arriving_at: 2018-07-19 11:51:45
+  leaving_a: 2018-07-19 11:51:45
+  note: MyText
+  user: one
+
+two:
+  arriving_at: 2018-07-19 11:51:45
+  leaving_a: 2018-07-19 11:51:45
+  note: MyText
+  user: two

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admin_users
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   get 'likes/create'
 
   get 'likes/destroy'
@@ -24,6 +26,7 @@ Rails.application.routes.draw do
     end
   end
   resources :account_activations, only: [:edit]
+  resources :attendances
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :microposts,          only: [:create, :destroy]
   resources :relationships,       only: [:create, :destroy]
