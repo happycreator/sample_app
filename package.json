@@ -1,0 +1,11 @@
+{
+  "name": "sample_app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:happycreator/sample_app.git",
+  "author": "Happy Yuriko <yuriko-ito@hotmail.co.jp>",
+  "license": "MIT",
+  "dependencies": {
+    "@rails/webpacker": "^3.5.5"
+  }
+}
