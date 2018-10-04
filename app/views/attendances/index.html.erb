@@ -1,30 +1,46 @@
 <%= week_calendar(attribute: :arriving_at, end_attribute: :leaving_at, events: @attendances) do |date, attendances| %>
-  <span class="date-str"><%= date.day %></span>
+  <span class="date-str"><%= date.month %>/<%= date.day %></span>
   <div class="row">
   </div>
-    <% attendances.each do |attendance| %>
+  
+  <% attendances.each do |attendance| %>
+    <div>
       <div>
-        <br><font color="#337ab7">出社 </font><b><%= attendance.arriving_at.to_s(:time) %></b><br><br>
-          <font color="#337ab7">退社 </font><b><%= attendance.leaving_at.to_s(:time) %></b><br><br>
-          <font color="#337ab7">在社時間 </font><b><%= (Time.parse("1/1") + (attendance.leaving_at - attendance.arriving_at)).strftime("%H時間%M分")%></b><br><br>
-            <!-- モーダルウィンドウを呼び出すボタン -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Noteを表示</button></b><br><br>
-       <!-- モーダルウィンドウの中身 -->
-       <div class="modal fade" id="myModal">
+        <span class="attendance-text-label">出社</span>
+        <span class="attendance-time-label"><%= attendance.arriving_at.to_s(:time) %></span>
+      </div>
+      <% if attendance.leaving_at.present? %>
+        <div>
+          <span class="attendance-text-label">退社</span>
+          <span class="attendance-time-label"><%= attendance.leaving_at.to_s(:time) %></span>
+        </div>
+        <div>
+          <span class="attendance-text-label">在社時間</span>
+          <span class="attendance-time-label"><%= (Time.parse("1/1") + (attendance.leaving_at - attendance.arriving_at)).strftime("%H.%M")%></span>
+        </div>
+        <!-- モーダルウィンドウを呼び出すボタン -->
+        <br><button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#myModal">Noteを表示</button>
+        <!-- モーダルウィンドウの中身 -->
+        <div class="modal fade" id="myModal">
           <div class="modal-dialog">
             <div class="modal-content">
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                      <h4 class="modal-title">Note</h4>
-                  </div>
-                  <div class="modal-body"><%= attendance.note %></div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
-                </div>
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Note</h4>
+              </div>
+              <div class="modal-body"><%= attendance.note %></div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">閉じる</button>
+              </div>
+            </div>
           </div>
-      </div>
-      </div>
-   <% end %>
-   <%= link_to "編集", new_attendance_path, class: 'btn btn-default btn-block' %>
+        </div>
+        <%= link_to "削除する", attendance_path(attendance), method: :delete, data: {confirm: "出勤/退勤の時刻を、本当に削除しますか？"}, class: "btn btn-link" %>
+      <% end %>
+    <% end %>
+  <%= link_to "編集", new_attendance_path, class: 'btn btn-default btn-block' %>
+  <div class="modal-flex">
+    <%= render 'modal-arriving' %>
+    <%= render 'modal-leaving' %>
+  </div>
 <% end %>
-
