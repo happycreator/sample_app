@@ -21,6 +21,7 @@ gem 'counter_culture', '~> 1.0'
 gem "simple_calendar", "~> 2.0"
 gem 'rails_admin', '~> 1.3'
 gem 'devise'
+gem 'carrierwave'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
