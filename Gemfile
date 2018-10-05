@@ -22,6 +22,7 @@ gem "simple_calendar", "~> 2.0"
 gem 'rails_admin', '~> 1.3'
 gem 'devise'
 gem 'carrierwave'
+gem 'mini_magick'
 
 group :development, :test do
   gem 'sqlite3', '1.3.13'
