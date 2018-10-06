@@ -1,4 +1,4 @@
-<%= week_calendar(attribute: :arriving_at, end_attribute: :leaving_at, events: @attendances) do |date, attendances| %>
+<%= month_calendar(attribute: :arriving_at, end_attribute: :leaving_at, events: @attendances) do |date, attendances| %>
   <span class="date-str"><%= date.month %>/<%= date.day %></span>
   <div class="row">
   </div>
