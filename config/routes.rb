@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     end
   end
   resources :account_activations, only: [:edit]
-  resources :attendances
+  resources :attendances # attendances/month_edit, attendances/month_update のようなルーティングを作成(入れ子のルーティングの書き方を調査)
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :relationships,       only: [:create, :destroy]
 end

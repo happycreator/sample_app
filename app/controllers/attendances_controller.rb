@@ -73,6 +73,15 @@ class AttendancesController < ApplicationController
     redirect_to attendances_path
   end
   
+  # 一括編集画面
+  def month_edit
+  end
+  
+  # 一括編集処理
+  def month_update
+    # 一ヶ月分のパラメータを受け取って更新
+  end
+  
   private
 
   def attendance_params
