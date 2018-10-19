@@ -1,5 +1,5 @@
 <div>
-  <span class="attendance-text-edit"><%= link_to "Monthly編集", attendances_path, :style=>"color:#444444;" %></span>
+  <span class="attendance-text-edit"><%= link_to "Monthly一括編集", month_edit_attendances_path, :style=>"color:#444444;" %></span>
 </div>
 <%= month_calendar(attribute: :arriving_at, end_attribute: :leaving_at, events: @attendances) do |date, attendances| %>
   <span class="date-str"><%= date.month %>/<%= date.day %></span>
@@ -22,7 +22,7 @@
           <span class="attendance-time-label"><%= (Time.parse("1/1") + (attendance.leaving_at - attendance.arriving_at)).strftime("%H.%M")%></span>
         </div>
         <!-- モーダルウィンドウを呼び出すボタン -->
-        <!---<br><button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#myModal">Noteを表示</button>
+        <!--<br><button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#myModal">Noteを表示</button>
         <!-- モーダルウィンドウの中身 -->
         <!--<div class="modal fade" id="myModal">
           <div class="modal-dialog">

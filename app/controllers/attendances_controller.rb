@@ -75,6 +75,7 @@ class AttendancesController < ApplicationController
   
   # 一括編集画面
   def month_edit
+    @attendance_collection = Form::AttendanceCollection.new
   end
   
   # 一括編集処理

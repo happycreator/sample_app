@@ -1,0 +1,31 @@
+<!--一括編集画面の作成-->
+<%= form_for(@attendance_collection, url: month_update_attendances_path, method: :post) do |fa| %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>出社日時</th>
+        <th>退社日時</th>
+        <th>メモ</th>
+      </tr>
+    </thead>
+      <tbody class="bulk-registration-form">
+      <%= fa.fields_for :attendances do |f| %>
+        <tr class="item">
+        　　<td>
+        　　<%= f.datetime_select :arriving_at, {}, class: 'form-control' %>
+        　　</td>
+        　　<td>
+        　　<%= f.datetime_select :leaving_at, {}, class: 'form-control' %>
+        　　</td>
+        　　<td>
+        　　<%= f.text_field :note, class: 'form-control' %>
+        　　</td>
+        </tr>
+      <% end %>
+      </tbody>
+  </table>
+  <!--一括登録のボタンの作成-->
+  <div class="text-center">
+  <%= fa.submit '編集を保存する', class: 'btn btn-primary' %>
+  </div>
+<% end %>
