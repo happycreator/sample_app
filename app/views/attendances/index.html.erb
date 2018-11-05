@@ -1,5 +1,5 @@
 <div>
-  <span class="attendance-text-edit"><%= link_to "Monthly一括編集", month_edit_attendances_path, :style=>"color:#444444;" %></span>
+  <span class="attendance-text-edit"><%= link_to "一ヶ月一括編集", month_edit_attendances_path, :style=>"color:#444444;" %></span>
 </div>
 <%= month_calendar(attribute: :arriving_at, end_attribute: :leaving_at, events: @attendances) do |date, attendances| %>
   <span class="date-str"><%= date.month %>/<%= date.day %></span>
@@ -44,7 +44,9 @@
   <!---<%= link_to "編集", new_attendance_path, class: 'btn btn-default btn-block' %>--->
       <div class="modal-flex">
       <% if Date.today == date %>
-        <%= render 'modal-arriving' %>
+        <% unless @attendances.where(arriving_at: date.beginning_of_day...date.end_of_day).present? %>
+          <%= render 'modal-arriving' %>
+        <% end %>
         <% if @attendances.where(arriving_at: date.beginning_of_day...date.end_of_day).present? %>
           <%= render 'modal-leaving' %>
         <% end %>

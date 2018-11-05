@@ -81,9 +81,22 @@ class AttendancesController < ApplicationController
   # 一括編集処理
   def month_update
     # 一ヶ月分のパラメータを受け取って更新
+    binding.pry
+    @form = Form::AttendanceCollection.new(attendance_collection_params, current_user)
+    if @form.save
+      redirect_to :attendances, notice: "一ヶ月分の勤怠を登録しました。"
+    else
+      redirect_to month_edit_attendances_path
+    end
   end
   
   private
+  
+  def attendance_collection_params
+    params
+      .require(:form_attendance_collection)
+      .permit(attendances_attributes: Form::Attendance::REGISTRABLE_ATTRIBUTES)
+  end
 
   def attendance_params
     # 許可するパラメータのリスト
