@@ -81,7 +81,6 @@ class AttendancesController < ApplicationController
   # 一括編集処理
   def month_update
     # 一ヶ月分のパラメータを受け取って更新
-    binding.pry
     @form = Form::AttendanceCollection.new(attendance_collection_params, current_user)
     if @form.save
       redirect_to :attendances, notice: "一ヶ月分の勤怠を登録しました。"

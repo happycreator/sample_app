@@ -15,7 +15,7 @@
         　　<%= f.datetime_select :arriving_at, {}, class: 'form-control' %>
         　　</td>
         　　<td>
-        　　<%= f.datetime_select :leaving_at, {discard_day: true, discard_month: true, discard_year: true}, class: 'form-control' %>
+        　　<%= f.datetime_select :leaving_at, {with_css_classes: true}, class: 'form-control' %>
         　　</td>
         　　<td>
         　　<%= f.text_field :note, class: 'form-control' %>
