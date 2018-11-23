@@ -9,6 +9,10 @@ class AttendancesController < ApplicationController
     @leaving_attendance = Attendance.new
   end
   
+  def show
+    @attendance = Attendance.find(params[:id]) 
+  end
+  
   def new
     @attendance = Attendance.new
   end
@@ -45,14 +49,13 @@ class AttendancesController < ApplicationController
  
   def update
     # 渡ってきたデータをDateTimeオブジェクト型に変更する
-    leaving_datetime = Time.zone.local(params[:leaving_at]["{}(1i)"].to_i, params[:leaving_at]["{}(2i)"].to_i, params[:leaving_at]["{}(3i)"].to_i, params[:leaving_at]["{}(4i)"].to_i, params[:leaving_at]["{}(5i)"].to_i)
-
+    leaving_datetime = DateTime.parse(params[:leaving_at].split('=>')[1].chop)
     # params で渡ってきたデータで検索する
     # :id の 1 はダミーなので使わないこと
     if current_user.attendances.where(arriving_at: leaving_datetime.beginning_of_day...leaving_datetime.end_of_day).present?
       attendance = current_user.attendances.where(arriving_at: leaving_datetime.beginning_of_day...leaving_datetime.end_of_day).first
      
-      if attendance.update(leaving_at: leaving_datetime)     
+      if attendance.update(leaving_at: leaving_datetime)
         flash[:success] = "退社時刻を更新しました"
         redirect_to attendances_path
       else

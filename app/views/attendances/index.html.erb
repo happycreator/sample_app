@@ -45,10 +45,25 @@
       <div class="modal-flex">
       <% if Date.today == date %>
         <% unless @attendances.where(arriving_at: date.beginning_of_day...date.end_of_day).present? %>
-          <%= render 'modal-arriving' %>
+          <%= form_for @arriving_attendance do |f| %>
+            <div class="field">
+              <%= f.hidden_field :arriving_at, value: DateTime.current %>
+            </div>
+            
+            <div class="actions">
+              <%= f.submit  "出社", class: "btn btn-primary" %>
+            </div>
+          <% end %>
         <% end %>
         <% if @attendances.where(arriving_at: date.beginning_of_day...date.end_of_day).present? %>
-          <%= render 'modal-leaving' %>
+          <%= form_tag("/attendances/1", method: "put") do %>
+            <div class="field">
+              <%= hidden_field_tag :leaving_at, value: DateTime.current %>
+            </div>
+            <div class="actions">
+              <%= submit_tag("退社", class: "btn btn-primary") %>
+            </div>
+          <% end %>
         <% end %>
       <% end %>
     </div>
