@@ -42,7 +42,7 @@
       <!--<% end %>
      <% end %>
   <!---<%= link_to "編集", new_attendance_path, class: 'btn btn-default btn-block' %>--->
-      <div class="modal-flex">
+    <div class="modal-flex">
       <% if Date.today == date %>
         <% unless @attendances.where(arriving_at: date.beginning_of_day...date.end_of_day).present? %>
           <%= form_for @arriving_attendance do |f| %>
@@ -56,13 +56,15 @@
           <% end %>
         <% end %>
         <% if @attendances.where(arriving_at: date.beginning_of_day...date.end_of_day).present? %>
-          <%= form_tag("/attendances/1", method: "put") do %>
-            <div class="field">
-              <%= hidden_field_tag :leaving_at, value: DateTime.current %>
-            </div>
-            <div class="actions">
-              <%= submit_tag("退社", class: "btn btn-primary") %>
-            </div>
+          <% unless @attendances.where(leaving_at: date.beginning_of_day...date.end_of_day).present? %>
+            <%= form_tag("/attendances/1", method: "put") do %>
+              <div class="field">
+                <%= hidden_field_tag :leaving_at, value: DateTime.current %>
+              </div>
+              <div class="actions">
+                <%= submit_tag("退社", class: "btn btn-primary") %>
+              </div>
+            <% end %>
           <% end %>
         <% end %>
       <% end %>
