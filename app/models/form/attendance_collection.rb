@@ -11,7 +11,7 @@ class Form::AttendanceCollection < Form::Base
       # 月初めのデータを生成して変数に格納
       first_date_of_month = DateTime.current.beginning_of_month
       # 月末のデータを生成して変数に格納
-      last_date_of_month = DateTime.current.end_of_month
+      last_date_of_month = DateTime.current
       # 月初めのデータから月末までのデータのループ処理
       attendances_array = []
       (first_date_of_month...last_date_of_month).each do |date|
@@ -25,8 +25,16 @@ class Form::AttendanceCollection < Form::Base
 
   def attendances_attributes=(attributes)
     self.attendances = attributes.map do |_, attendance_attributes|
-      Form::Attendance.new(attendance_attributes)
+      if attendance_attributes["arriving_at(4i)"] == "00"
+        next
+      elsif attendance_attributes["arriving_at(4i)"].to_i > attendance_attributes["leaving_at(4i)"].to_i 
+      #出社時間より退社時間の方が早い場合は入力しない
+        next
+      else
+        Form::Attendance.new(attendance_attributes)
+      end
     end
+    self.attendances.compact!
   end
 
   def valid?
