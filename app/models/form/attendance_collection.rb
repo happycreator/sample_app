@@ -30,6 +30,8 @@ class Form::AttendanceCollection < Form::Base
       elsif attendance_attributes["arriving_at(4i)"].to_i > attendance_attributes["leaving_at(4i)"].to_i 
       #出社時間より退社時間の方が早い場合は入力しない
         next
+      elsif DateTime.current < DateTime.parse("#{attendance_attributes['arriving_at(1i)']}-#{attendance_attributes['arriving_at(2i)']}-#{attendance_attributes['arriving_at(3i)']}")                                                                                             
+        next
       else
         Form::Attendance.new(attendance_attributes)
       end

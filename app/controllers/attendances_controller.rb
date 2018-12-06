@@ -85,10 +85,10 @@ class AttendancesController < ApplicationController
   def month_update
     # 一ヶ月分のパラメータを受け取って更新
     @form = Form::AttendanceCollection.new(attendance_collection_params, current_user)
-    if @form.save
-      redirect_to :attendances, notice: "一ヶ月分の勤怠を登録しました。"
+    if @form.attendances.present? && @form.save
+      redirect_to :attendances, notice: "勤怠を登録しました。"
     else
-      redirect_to month_edit_attendances_path
+      redirect_to month_edit_attendances_path, notice: "勤怠の登録に失敗しました。"
     end
   end
   
