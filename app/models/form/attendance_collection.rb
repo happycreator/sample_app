@@ -31,6 +31,7 @@ class Form::AttendanceCollection < Form::Base
       #出社時間より退社時間の方が早い場合は入力しない
         next
       elsif DateTime.current < DateTime.parse("#{attendance_attributes['arriving_at(1i)']}-#{attendance_attributes['arriving_at(2i)']}-#{attendance_attributes['arriving_at(3i)']}")                                                                                             
+        #現在の日時<未来の日時
         next
       else
         Form::Attendance.new(attendance_attributes)
